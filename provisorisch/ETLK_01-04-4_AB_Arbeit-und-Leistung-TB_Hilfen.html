@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hilfen: Arbeit und Leistung</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<style>
+:root{
+  --bg:#F3F5F7; --plate:#FFFFFF; --plate-edge:#C9D1D8; --ink:#1B2733; --muted:#56636F;
+  --navy:#11324F; --amber:#B85A04; --amber-soft:#FFF1E3; --green:#21784D; --green-soft:#E4F6EC;
+  --rivet:#AEB8C2; --grid:#DDE3E8; --red:#A52F27; --blue:#1C5D99;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1821; --plate:#16232F; --plate-edge:#2C3B49; --ink:#E4EBF1; --muted:#9AA9B6;
+    --navy:#9CC7EE; --amber:#F2994A; --amber-soft:#2A2016; --green:#5BCB91; --green-soft:#13291F;
+    --rivet:#3B4B59; --grid:#26343F; --red:#F07A70; --blue:#7EB6EA;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#0E1821; --plate:#16232F; --plate-edge:#2C3B49; --ink:#E4EBF1; --muted:#9AA9B6;
+    --navy:#9CC7EE; --amber:#F2994A; --amber-soft:#2A2016; --green:#5BCB91; --green-soft:#13291F;
+    --rivet:#3B4B59; --grid:#26343F; --red:#F07A70; --blue:#7EB6EA;
+    color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Bahnschrift","DIN Alternate","DIN Next","Roboto Condensed","Segoe UI",system-ui,sans-serif;
+  font-size:17px;line-height:1.5;-webkit-text-size-adjust:100%;
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:640px;margin:0 auto;padding:0 14px}
+header.top{background:var(--navy);color:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 20px) 0 18px}
+header.top .wrap{display:flex;flex-direction:column;gap:4px}
+header.top h1{margin:0;font-size:1.75rem;line-height:1.15;font-weight:700;letter-spacing:.01em}
+header.top p{margin:0;font-size:.95rem;opacity:.85}
+header.top a.switch{align-self:flex-start;margin-top:10px;color:inherit;font-size:.95rem;
+  border:1.5px solid currentColor;border-radius:999px;padding:5px 14px;text-decoration:none}
+nav.jump{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--plate-edge);
+  padding-top:env(safe-area-inset-top,0px)}
+nav.jump .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+nav.jump a{flex:0 0 auto;min-width:44px;text-align:center;padding:7px 10px;border-radius:8px;
+  background:var(--plate);border:1px solid var(--plate-edge);color:var(--navy);text-decoration:none;font-weight:600}
+.intro{color:var(--muted);font-size:.95rem;margin:16px 0 4px}
+section.task{position:relative;background:var(--plate);border:1px solid var(--plate-edge);border-radius:12px;
+  margin:18px 0;padding:18px 16px 8px}
+section.task::before,section.task::after{content:"";position:absolute;top:10px;width:7px;height:7px;border-radius:50%;background:var(--rivet)}
+section.task::before{left:10px} section.task::after{right:10px}
+section.task h2{margin:0 0 2px;font-size:1.2rem;color:var(--navy);line-height:1.25}
+section.task h2 .nr{display:inline-block;min-width:2.1em;color:var(--amber)}
+.afb{font-size:.8rem;color:var(--muted);margin:0 0 6px}
+.optional{font-size:.8rem;color:var(--muted);font-style:italic}
+.teil{border-top:1px dashed var(--plate-edge);padding:12px 0 10px}
+.teil:first-of-type{border-top:0}
+.frage{margin:0 0 10px}
+.frage b{color:var(--amber);margin-right:4px}
+.stufe{display:none;margin:8px 0;padding:10px 12px;border-radius:8px;border-left:4px solid var(--amber);background:var(--amber-soft)}
+.stufe.offen{display:block;animation:auf .22s ease-out}
+.stufe .kopf{display:block;font-weight:700;font-size:.85rem;color:var(--amber);margin-bottom:2px}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.stufe.offen{animation:none}}
+button.reveal{font:inherit;font-weight:600;font-size:.95rem;color:var(--amber);background:transparent;
+  border:1.5px solid var(--amber);border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer;margin:2px 0}
+button.reveal[hidden]{display:none}
+a.tolsg{display:inline-flex;align-items:center;min-height:44px;color:var(--green);font-weight:600;font-size:.95rem}
+a.tolsg[hidden]{display:none}
+.lsg{margin:6px 0 4px;padding:10px 12px;border-radius:8px;background:var(--green-soft);border-left:4px solid var(--green)}
+.lsg p{margin:4px 0}
+.f{white-space:nowrap}
+var{font-style:italic;font-family:"Cambria Math","Times New Roman",serif;font-size:1.05em}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em;font-size:.92em;line-height:1.15}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .2em}
+.frac>span:last-child{padding:0 .2em}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.tablewrap{overflow-x:auto;margin:6px 0}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem;background:var(--plate)}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--plate-edge)}
+th{color:var(--navy)} td.neu{color:var(--green);font-weight:700}
+.note{font-size:.85rem;color:var(--muted)}
+svg.plot{width:100%;height:auto;display:block;margin:6px 0;background:var(--plate)}
+svg .grid{stroke:var(--grid);stroke-width:1}
+svg .axis{stroke:var(--ink);stroke-width:1.4}
+svg .tick,svg .lab{fill:var(--muted);font-size:11px;font-family:inherit}
+svg .folie{stroke:var(--blue);stroke-width:2.4}
+svg .halo{stroke:var(--red);stroke-width:2.4;fill:none}
+svg .pt{fill:var(--red)}
+svg .hyp{stroke:var(--amber);stroke-width:1.4;stroke-dasharray:5 4;fill:none}
+svg .hyptxt{fill:var(--amber);font-size:11px;font-weight:700}
+svg .halotxt{fill:var(--red);font-size:12px;font-weight:700}
+svg .folietxt{fill:var(--blue);font-size:12px;font-weight:700}
+footer{color:var(--muted);font-size:.85rem;padding:10px 0 28px}
+body.loesung header.top{background:var(--green)}
+details.aufklapp>summary{list-style:none;display:inline-flex;align-items:center;min-height:44px;cursor:pointer;
+  font-weight:600;font-size:.95rem;color:var(--green);border:1.5px solid var(--green);border-radius:999px;padding:8px 16px}
+details.aufklapp>summary::-webkit-details-marker{display:none}
+details.aufklapp .zu{display:none}
+details.aufklapp[open] .zu{display:inline} details.aufklapp[open] .auf{display:none}
+details.aufklapp[open]>.lsg{animation:auf .22s ease-out}
+@media (prefers-reduced-motion: reduce){details.aufklapp[open]>.lsg{animation:none}}
+
+</style>
+</head>
+<body class="">
+<header class="top"><div class="wrap">
+<h1>Arbeit und Leistung</h1>
+<p>Hilfen zum Arbeitsblatt Heizfolie und Halogen-Heizstrahler</p>
+<a class="switch" href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html">Zu den Lösungen</a>
+</div></header>
+<nav class="jump" aria-label="Aufgaben"><div class="wrap"><a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a><a href="#z1">Z1</a><a href="#z2">Z2</a></div></nav>
+<main class="wrap">
+<p class="intro">Versuch es zuerst allein. Wenn du nicht weiterkommst, öffne den Tipp. Reicht das nicht, öffne den Ansatz. Erst danach lohnt der Blick in die Lösung.</p>
+<section class="task" id="a1"><h2><span class="nr">1</span>Typschild und Energie</h2><p class="afb">Anforderungsbereich I–II</p>
+<div class="teil"><p class="frage"><b>a)</b>Nennstrom und Widerstand im Nennbetrieb aus 12 V / 60 W berechnen.</p>
+<button class="reveal" id="b1-a1a" aria-expanded="false" aria-controls="s1-a1a">Tipp zeigen</button>
+<div class="stufe" id="s1-a1a"><span class="kopf">Tipp</span>Auf dem Typschild stehen Nennspannung und Nennleistung. Welche Formel verbindet Leistung, Spannung und Strom?</div>
+<button class="reveal" id="b2-a1a" data-after="b1-a1a" hidden aria-expanded="false" aria-controls="s2-a1a">Ansatz zeigen</button>
+<div class="stufe" id="s2-a1a"><span class="kopf">Ansatz</span>Erst <span class="f"><var>I</var><sub>N</sub> = <span class="frac"><span><var>P</var><sub>N</sub></span><span><var>U</var><sub>N</sub></span></span></span>, dann <span class="f"><var>R</var><sub>N</sub> = <span class="frac"><span><var>U</var><sub>N</sub></span><span><var>I</var><sub>N</sub></span></span></span>. Beide Geräte haben dasselbe Typschild.</div>
+<a class="tolsg" data-after="b2-a1a" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a1a">Lösung zu A1a) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>b)</b>Elektrische Arbeit der Heizfolie über drei Messetage zu je 9 h, in kWh und MJ.</p>
+<button class="reveal" id="b1-a1b" aria-expanded="false" aria-controls="s1-a1b">Tipp zeigen</button>
+<div class="stufe" id="s1-a1b"><span class="kopf">Tipp</span>Bestimme zuerst die gesamte Betriebszeit. Arbeit ist Leistung mal Zeit.</div>
+<button class="reveal" id="b2-a1b" data-after="b1-a1b" hidden aria-expanded="false" aria-controls="s2-a1b">Ansatz zeigen</button>
+<div class="stufe" id="s2-a1b"><span class="kopf">Ansatz</span><span class="f"><var>W</var> = <var>P</var> · <var>t</var></span> mit <var>t</var> in Stunden ergibt Wh. Dann umrechnen: 1 kWh = 3,6 MJ.</div>
+<a class="tolsg" data-after="b2-a1b" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a1b">Lösung zu A1b) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>c)</b>2,5 kWh in MJ und 7200 J in Wh umrechnen.</p>
+<button class="reveal" id="b1-a1c" aria-expanded="false" aria-controls="s1-a1c">Tipp zeigen</button>
+<div class="stufe" id="s1-a1c"><span class="kopf">Tipp</span>Merke dir zwei Umrechnungen: 1 kWh = 3,6 MJ und 1 Wh = 3600 J.</div>
+<button class="reveal" id="b2-a1c" data-after="b1-a1c" hidden aria-expanded="false" aria-controls="s2-a1c">Ansatz zeigen</button>
+<div class="stufe" id="s2-a1c"><span class="kopf">Ansatz</span>2,5 · 3,6 MJ rechnen. Für die Joule teilst du durch 3600 J pro Wh.</div>
+<a class="tolsg" data-after="b2-a1c" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a1c">Lösung zu A1c) ansehen</a>
+</div>
+</section>
+<section class="task" id="a2"><h2><span class="nr">2</span>Kennlinie des Halogen-Heizstrahlers</h2><p class="afb">Anforderungsbereich II</p>
+<div class="teil"><p class="frage"><b>a)</b>Messwerte eintragen und zu einer glatten Kurve verbinden.</p>
+<button class="reveal" id="b1-a2a" aria-expanded="false" aria-controls="s1-a2a">Tipp zeigen</button>
+<div class="stufe" id="s1-a2a"><span class="kopf">Tipp</span><var>U</var> gehört auf die waagerechte Achse, <var>I</var> auf die senkrechte – so wie bei der vorgegebenen Heizfolien-Geraden.</div>
+<button class="reveal" id="b2-a2a" data-after="b1-a2a" hidden aria-expanded="false" aria-controls="s2-a2a">Ansatz zeigen</button>
+<div class="stufe" id="s2-a2a"><span class="kopf">Ansatz</span>Jeden Messpunkt als kleines Kreuz markieren. Die Punkte freihand mit einer glatten Kurve verbinden, nicht mit dem Lineal. Die Kurve beginnt im Ursprung und endet bei (12 V | 5 A).</div>
+<a class="tolsg" data-after="b2-a2a" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a2a">Lösung zu A2a) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>b)</b>Fehlende Werte <span class="f"><var>R</var> = <var>U</var>/<var>I</var></span> und <span class="f"><var>P</var> = <var>U</var> · <var>I</var></span> in der Tabelle berechnen.</p>
+<button class="reveal" id="b1-a2b" aria-expanded="false" aria-controls="s1-a2b">Tipp zeigen</button>
+<div class="stufe" id="s1-a2b"><span class="kopf">Tipp</span>Für jede Spalte dieselbe Rechnung: Spannung durch Strom ergibt <var>R</var>, Spannung mal Strom ergibt <var>P</var>.</div>
+<button class="reveal" id="b2-a2b" data-after="b1-a2b" hidden aria-expanded="false" aria-controls="s2-a2b">Ansatz zeigen</button>
+<div class="stufe" id="s2-a2b"><span class="kopf">Ansatz</span>Beispiel erste Spalte: <span class="f"><var>R</var> = <span class="frac"><span>0,5 V</span><span>0,90 A</span></span> ≈ 0,56 Ω</span>. Runde auf zwei Nachkommastellen.</div>
+<a class="tolsg" data-after="b2-a2b" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a2b">Lösung zu A2b) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>c)</b>Die beiden Kennlinien vergleichen: Gemeinsamkeiten und Unterschiede.</p>
+<button class="reveal" id="b1-a2c" aria-expanded="false" aria-controls="s1-a2c">Tipp zeigen</button>
+<div class="stufe" id="s1-a2c"><span class="kopf">Tipp</span>Schau auf drei Dinge: Wo beginnen die Kennlinien, wo enden sie, und welche Form haben sie?</div>
+<button class="reveal" id="b2-a2c" data-after="b1-a2c" hidden aria-expanded="false" aria-controls="s2-a2c">Ansatz zeigen</button>
+<div class="stufe" id="s2-a2c"><span class="kopf">Ansatz</span>Gerade oder Kurve? Liegt die Halogen-Kennlinie bei kleinen Spannungen über oder unter der Heizfolie?</div>
+<a class="tolsg" data-after="b2-a2c" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a2c">Lösung zu A2c) ansehen</a>
+</div>
+</section>
+<section class="task" id="a3"><h2><span class="nr">3</span>Einschaltstrom</h2><p class="afb">Anforderungsbereich II–III</p>
+<div class="teil"><p class="frage"><b>a)</b>Einschaltstrom bei 12 V mit R<sub>kalt</sub> = 0,20 Ω berechnen und mit dem Nennstrom vergleichen.</p>
+<button class="reveal" id="b1-a3a" aria-expanded="false" aria-controls="s1-a3a">Tipp zeigen</button>
+<div class="stufe" id="s1-a3a"><span class="kopf">Tipp</span>Im Einschaltmoment ist die Wendel noch kalt. Welcher Widerstand gilt also?</div>
+<button class="reveal" id="b2-a3a" data-after="b1-a3a" hidden aria-expanded="false" aria-controls="s2-a3a">Ansatz zeigen</button>
+<div class="stufe" id="s2-a3a"><span class="kopf">Ansatz</span><span class="f"><var>I</var><sub>ein</sub> = <span class="frac"><span><var>U</var></span><span><var>R</var><sub>kalt</sub></span></span></span>, danach <var>I</var><sub>ein</sub> durch <var>I</var><sub>N</sub> teilen.</div>
+<a class="tolsg" data-after="b2-a3a" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a3a">Lösung zu A3a) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>b)</b>Netzteil schaltet über 10 A ab: Lassen sich beide Geräte einschalten? Abhilfe vorschlagen.</p>
+<button class="reveal" id="b1-a3b" aria-expanded="false" aria-controls="s1-a3b">Tipp zeigen</button>
+<div class="stufe" id="s1-a3b"><span class="kopf">Tipp</span>Vergleiche für beide Geräte den Strom im Einschaltmoment mit 10 A.</div>
+<button class="reveal" id="b2-a3b" data-after="b1-a3b" hidden aria-expanded="false" aria-controls="s2-a3b">Ansatz zeigen</button>
+<div class="stufe" id="s2-a3b"><span class="kopf">Ansatz</span>Die Heizfolie hat kalt und warm denselben Widerstand. Für den Halogenstrahler nimmst du das Ergebnis aus a). Abhilfe: Wie könnte man den Strom beim Einschalten begrenzen oder die Abschaltung verzögern?</div>
+<a class="tolsg" data-after="b2-a3b" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a3b">Lösung zu A3b) ansehen</a>
+</div>
+</section>
+<section class="task" id="a4"><h2><span class="nr">4</span>Am Ende der langen Zuleitung</h2><p class="afb">Anforderungsbereich III</p>
+<div class="teil"><p class="frage"><b>a)</b>Leistung der Heizfolie bei 10 V und prozentuale Abnahme.</p>
+<button class="reveal" id="b1-a4a" aria-expanded="false" aria-controls="s1-a4a">Tipp zeigen</button>
+<div class="stufe" id="s1-a4a"><span class="kopf">Tipp</span>Die Heizfolie ist ohmsch. Ihr Widerstand bleibt also bei jeder Spannung 2,4 Ω.</div>
+<button class="reveal" id="b2-a4a" data-after="b1-a4a" hidden aria-expanded="false" aria-controls="s2-a4a">Ansatz zeigen</button>
+<div class="stufe" id="s2-a4a"><span class="kopf">Ansatz</span><span class="f"><var>P</var> = <span class="frac"><span><var>U</var>²</span><span><var>R</var></span></span></span>. Für die Prozente: neue Leistung durch 60 W teilen.</div>
+<a class="tolsg" data-after="b2-a4a" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a4a">Lösung zu A4a) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>b)</b>Leistung des Halogenstrahlers bei 10 V mithilfe der Kennlinie.</p>
+<button class="reveal" id="b1-a4b" aria-expanded="false" aria-controls="s1-a4b">Tipp zeigen</button>
+<div class="stufe" id="s1-a4b"><span class="kopf">Tipp</span>Der Halogenstrahler ist nicht ohmsch. Seinen Widerstand bei 10 V kennst du nicht aus dem Typschild.</div>
+<button class="reveal" id="b2-a4b" data-after="b1-a4b" hidden aria-expanded="false" aria-controls="s2-a4b">Ansatz zeigen</button>
+<div class="stufe" id="s2-a4b"><span class="kopf">Ansatz</span>Lies den Strom bei 10 V in der Tabelle oder an deiner Kennlinie ab und rechne <span class="f"><var>P</var> = <var>U</var> · <var>I</var></span>.</div>
+<a class="tolsg" data-after="b2-a4b" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a4b">Lösung zu A4b) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>c)</b>Ein Kollege rechnet <span class="f"><var>P</var> = (10 V)² / 2,4 Ω = 41,7 W</span>. Vorgehen beurteilen.</p>
+<button class="reveal" id="b1-a4c" aria-expanded="false" aria-controls="s1-a4c">Tipp zeigen</button>
+<div class="stufe" id="s1-a4c"><span class="kopf">Tipp</span>Gilt der Nennwiderstand <var>R</var><sub>N</sub> = 2,4 Ω auch bei 10 V?</div>
+<button class="reveal" id="b2-a4c" data-after="b1-a4c" hidden aria-expanded="false" aria-controls="s2-a4c">Ansatz zeigen</button>
+<div class="stufe" id="s2-a4c"><span class="kopf">Ansatz</span>Berechne <var>R</var> bei 10 V aus der Tabelle (<var>U</var>/<var>I</var>) und vergleiche mit 2,4 Ω. Vergleiche das Ergebnis des Kollegen mit deinem Wert aus b).</div>
+<a class="tolsg" data-after="b2-a4c" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a4c">Lösung zu A4c) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>d)</b>Dem Kunden in zwei bis drei Sätzen antworten: „Gleiches Typschild – gleiches Verhalten?“</p>
+<button class="reveal" id="b1-a4d" aria-expanded="false" aria-controls="s1-a4d">Tipp zeigen</button>
+<div class="stufe" id="s1-a4d"><span class="kopf">Tipp</span>Unterscheide zwei Fälle: Betrieb bei 12 V und Betrieb bei weniger Spannung.</div>
+<button class="reveal" id="b2-a4d" data-after="b1-a4d" hidden aria-expanded="false" aria-controls="s2-a4d">Ansatz zeigen</button>
+<div class="stufe" id="s2-a4d"><span class="kopf">Ansatz</span>Satzanfänge: „Im Nennbetrieb …“ – „Bei geringerer Spannung …, weil …“ – „Das Typschild beschreibt nur …“</div>
+<a class="tolsg" data-after="b2-a4d" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a4d">Lösung zu A4d) ansehen</a>
+</div>
+</section>
+<section class="task" id="a5"><h2><span class="nr">5</span>Warum nicht alles mit 12 Volt?</h2><p class="afb">Anforderungsbereich III</p>
+<div class="teil"><p class="frage"><b>a)</b>Strom eines 2000-W-Heizlüfters an 230 V und an 12 V berechnen.</p>
+<button class="reveal" id="b1-a5a" aria-expanded="false" aria-controls="s1-a5a">Tipp zeigen</button>
+<div class="stufe" id="s1-a5a"><span class="kopf">Tipp</span>Du kennst Leistung und Spannung. Stelle <span class="f"><var>P</var> = <var>U</var> · <var>I</var></span> nach <var>I</var> um.</div>
+<button class="reveal" id="b2-a5a" data-after="b1-a5a" hidden aria-expanded="false" aria-controls="s2-a5a">Ansatz zeigen</button>
+<div class="stufe" id="s2-a5a"><span class="kopf">Ansatz</span><span class="f"><var>I</var> = <span class="frac"><span><var>P</var></span><span><var>U</var></span></span></span> – einmal mit 230 V, einmal mit 12 V.</div>
+<a class="tolsg" data-after="b2-a5a" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a5a">Lösung zu A5a) ansehen</a>
+</div>
+<div class="teil"><p class="frage"><b>b)</b>Beurteilen, ob solche Geräte am 12-V-System sinnvoll sind.</p>
+<button class="reveal" id="b1-a5b" aria-expanded="false" aria-controls="s1-a5b">Tipp zeigen</button>
+<div class="stufe" id="s1-a5b"><span class="kopf">Tipp</span>Was bedeutet ein sehr großer Strom für die Leitung?</div>
+<button class="reveal" id="b2-a5b" data-after="b1-a5b" hidden aria-expanded="false" aria-controls="s2-a5b">Ansatz zeigen</button>
+<div class="stufe" id="s2-a5b"><span class="kopf">Ansatz</span>Denk an Leitungsquerschnitt, Erwärmung der Leitung, Brandgefahr und den Spannungsverlust auf der Leitung.</div>
+<a class="tolsg" data-after="b2-a5b" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#a5b">Lösung zu A5b) ansehen</a>
+</div>
+</section>
+<section class="task" id="z1"><h2><span class="nr">Z1</span>Energiekosten</h2><p class="afb">Anforderungsbereich II <span class="optional">optional</span></p>
+<div class="teil"><p class="frage">Vier Heizfolien und zwei Halogenstrahler laufen 3 × 9 h; Arbeitspreis 0,35 €/kWh. Kosten berechnen.</p>
+<button class="reveal" id="b1-z1" aria-expanded="false" aria-controls="s1-z1">Tipp zeigen</button>
+<div class="stufe" id="s1-z1"><span class="kopf">Tipp</span>Bestimme zuerst die Gesamtleistung aller sechs Geräte.</div>
+<button class="reveal" id="b2-z1" data-after="b1-z1" hidden aria-expanded="false" aria-controls="s2-z1">Ansatz zeigen</button>
+<div class="stufe" id="s2-z1"><span class="kopf">Ansatz</span><span class="f"><var>W</var> = <var>P</var> · <var>t</var></span> in kWh, danach Kosten = <var>W</var> · Arbeitspreis.</div>
+<a class="tolsg" data-after="b2-z1" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#z1">Lösung zu Z1) ansehen</a>
+</div>
+</section>
+<section class="task" id="z2"><h2><span class="nr">Z2</span>Leistungshyperbel</h2><p class="afb">Anforderungsbereich III <span class="optional">optional</span></p>
+<div class="teil"><p class="frage">Alle Arbeitspunkte mit P = 20 W ins Diagramm zeichnen und ablesen, bei welcher Spannung jedes Gerät 20 W aufnimmt.</p>
+<button class="reveal" id="b1-z2" aria-expanded="false" aria-controls="s1-z2">Tipp zeigen</button>
+<div class="stufe" id="s1-z2"><span class="kopf">Tipp</span>Für jeden Punkt der Kurve gilt <span class="f"><var>I</var> = <span class="frac"><span>20 W</span><span><var>U</var></span></span></span>.</div>
+<button class="reveal" id="b2-z2" data-after="b1-z2" hidden aria-expanded="false" aria-controls="s2-z2">Ansatz zeigen</button>
+<div class="stufe" id="s2-z2"><span class="kopf">Ansatz</span>Wertetabelle für 4, 5, 6, 8, 10 und 12 V anlegen, Punkte eintragen, glatt verbinden. Dann die Schnittpunkte mit beiden Kennlinien ablesen.</div>
+<a class="tolsg" data-after="b2-z2" hidden href="Lehrkraft/ETLK_01-04-4_AB_Arbeit-und-Leistung-TB_L%C3%B6sung.html#z2">Lösung zu Z2) ansehen</a>
+</div>
+</section>
+</main><footer class="wrap">Berufskolleg am Haspel, Elektrotechnik AH3, Einheit 01-04</footer>
+<script>
+document.querySelectorAll('.teil').forEach(function(teil){
+  var btns=teil.querySelectorAll('button.reveal');
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var st=document.getElementById(b.getAttribute('aria-controls'));
+      st.classList.add('offen'); b.setAttribute('aria-expanded','true'); b.hidden=true;
+      var next=teil.querySelector('[data-after="'+b.id+'"]');
+      if(next){ next.hidden=false; }
+    });
+  });
+});
+</script>
+</body>
+</html>
